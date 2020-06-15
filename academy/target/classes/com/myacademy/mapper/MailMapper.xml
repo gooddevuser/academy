@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.MailMapper">
+	
+	
+	<insert id="insertMail" parameterType="MailVO" useGeneratedKeys="true" keyColumn="uno" keyProperty="uno">
+		INSERT INTO academy_mail (
+			mno, uno, sender, taker, title,
+			content, referrer, read
+		)
+		VALUES (
+			mail_seq.nextval, #{ uno }, #{ sender }, #{ taker }, #{ title }, #{ content }, #{ referrer }, #{ read }
+		)
+	</insert>
+		
+	<select id="findSenderCountByuno" parameterType="int" resultType="int">
+		select count(*)
+		from academy_mail
+		where uno = #{ uno }
+	</select>
+	
+</mapper>

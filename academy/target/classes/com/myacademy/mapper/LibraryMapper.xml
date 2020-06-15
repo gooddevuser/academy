@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.LibraryMapper">
+	
+	<insert id="insertLibrary" parameterType="LibraryVO" useGeneratedKeys="true">
+		INSERT INTO academy_library (
+			lno, name, subject, department, type, price, year
+		)
+		VALUES (
+			library_seq.nextval, #{ name }, #{ subject }, #{ department }, #{ type }, #{ price }, #{ year }
+		)
+	</insert>	
+	
+	<select id="findLibrary" resultType="LibraryVO">
+		SELECT *
+		FROM academy_library
+		WHERE active = '1'
+	</select>
+	
+	<select id="findLibraryConfirm" resultType="LibraryVO">
+		SELECT *
+		FROM academy_library
+		WHERE active = '0'
+	</select>
+		
+	<update id="findLibraryDoConfirm" parameterType="int">
+		UPDATE academy_library
+		SET active = '1'
+		WHERE lno = #{ lno }
+	</update>	
+	
+	<select id="findLibraryByLno" parameterType="int" resultType="LibraryVO">
+		SELECT *
+		FROM academy_library
+		WHERE lno = #{ lno }
+	</select>
+	
+	<delete id="deleteLibraryByLno" parameterType="int">
+		DELETE
+		FROM academy_library
+		WHERE lno = #{ lno }
+	</delete>
+	
+	<select id="selectLibraryByName" parameterType="String" resultType="LibraryVO">
+		select *
+		from academy_library
+		where name like '%'||#{name}||'%'
+	</select>
+</mapper>

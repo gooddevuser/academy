@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.UserMapper">
+
+	<insert id="insertUser" parameterType="UserVO" useGeneratedKeys="true">
+		INSERT INTO academy_user (
+			uno, name, email, 
+			password, phone, usertype
+		)
+		VALUES (
+			user_seq.nextval, #{ name }, #{ email }, #{ password }, #{ phone }, #{ usertype }
+		)
+	</insert>
+	
+	<select id="findEmailAndPassword" parameterType="UserVO" resultType="UserVO">
+		SELECT *
+		FROM academy_user
+		WHERE email = #{ email } AND password = #{ password }
+	</select>			
+		
+	<!-- <resultMap type="UserVO" id="UserMap">
+		<id column="uno" property="uno" />
+		<result column="name" property="name" />
+		<result column="department" property="department" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="usertype" property="usertype" />
+		<association property="professor" column="uno" resultMap="ProfessorMap" />
+	</resultMap>
+	<resultMap type="ProfessorVO" id="ProfessorMap" >
+		<id column="uno" property="uno" />
+		<result column="address" property="address" />
+		<result column="birth" property="birth" />
+		<result column="postcode" property="postcode" />
+		<result column="description" property="description" />
+		<result column="gender" property="gender" />
+		<result column="country" property="country" />
+		<result column="city" property="city" />
+		<result column="active" property="active" />
+	</resultMap> -->
+
+	<select id="findUserByProfessor" parameterType="ProfessorVO" resultType="UserVO">
+		SELECT *
+		FROM academy_user
+		WHERE uno = #{ uno }
+	</select>
+	
+	<update id="updateUserProfessorDoConfirm" parameterType="UserVO">
+		UPDATE academy_user
+		SET usertype = '2'
+		WHERE uno = #{ uno }
+	</update>
+	
+	<select id="findUserByStudent" parameterType="StudentVO" resultType="UserVO">
+		SELECT *
+		FROM academy_user
+		WHERE uno = #{ uno }
+	</select>
+	
+	<update id="updateUserStudentDoConfirm" parameterType="UserVO">
+		UPDATE academy_user
+		SET usertype = '1'
+		WHERE uno = #{ uno }
+	</update>
+	
+	<select id="findUserEmail" resultType="UserVO">
+		SELECT email
+		FROM academy_user
+	</select>
+	
+</mapper>

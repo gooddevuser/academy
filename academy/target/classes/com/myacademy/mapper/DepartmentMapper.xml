@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.DepartmentMapper">
+	
+	<insert id="insertDepartment" parameterType="DepartmentVO" useGeneratedKeys="true">
+		INSERT INTO academy_department (
+			dno, name, email, 
+			department, phone, students
+		)
+		VALUES (
+			department_seq.nextval, #{ name }, #{ email }, #{ department }, #{ phone }, #{ students }
+		)
+	</insert>
+		
+	<select id="findDepartment" resultType="DepartmentVO">
+		SELECT *
+		FROM academy_department
+		WHERE active = '1'
+	</select>	
+	
+	<!-- <select id="findDepartmentName" parameterType="DepartmentVO" resultType="DepartmentVO">
+		SELECT department
+		FROM academy_department
+		WHERE active = '1'
+	</select>
+	
+	<select id="findCountDepartment" parameterType="DepartmentVO" resultType="DepartmentVO">
+		SELECT COUNT(*)
+		FROM academy_student
+		where department = #{ department }
+	</select> -->
+	
+	<select id="findDepartmentConfirm" resultType="DepartmentVO">
+		SELECT *
+		FROM academy_department
+		WHERE active = '0'
+	</select>
+		
+	<update id="findDepartmentDoConfirm" parameterType="int">
+		UPDATE academy_department
+		SET active = '1'
+		WHERE dno = #{ dno }
+	</update>
+	
+	<select id="findDepartmentByDno" parameterType="int" resultType="DepartmentVO">
+		SELECT *
+		FROM academy_department
+		WHERE dno = #{ dno }
+	</select>
+	
+	<delete id="deleteDepartmentByDno" parameterType="int">
+		DELETE
+		FROM academy_department
+		WHERE dno = #{ dno }
+	</delete>
+	
+	<select id="selectDepartmentByName" parameterType="String" resultType="DepartmentVO">
+		select *
+		from academy_department
+		where name like '%'||#{name}||'%'
+	</select>
+</mapper>

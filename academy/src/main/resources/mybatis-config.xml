@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.myacademy.vo.UserVO" alias="UserVO" />
+		<typeAlias type="com.myacademy.vo.DepartmentVO" alias="DepartmentVO" />
+		<typeAlias type="com.myacademy.vo.CourseVO" alias="CourseVO" />
+		<typeAlias type="com.myacademy.vo.LibraryVO" alias="LibraryVO" />
+		<typeAlias type="com.myacademy.vo.ProfessorVO" alias="ProfessorVO" />
+		<typeAlias type="com.myacademy.vo.StudentVO" alias="StudentVO" />
+		<typeAlias type="com.myacademy.vo.MailVO" alias="MailVO" />
+		<typeAlias type="com.myacademy.vo.FileVO" alias="FileVO" />
+	</typeAliases>
+	
+</configuration>

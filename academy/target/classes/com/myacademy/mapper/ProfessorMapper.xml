@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.ProfessorMapper">
+	
+	<insert id="insertProfessor" parameterType="ProfessorVO" useGeneratedKeys="true" keyColumn="uno" keyProperty="uno">
+		INSERT INTO academy_professor (
+			pno, uno, name, department, address, birth , postcode,
+			phone, gender, country, city
+		)
+		VALUES (
+			professor_seq.nextval, #{ uno }, #{ name }, #{ department } , #{ address }, #{ birth }, #{ postcode }, #{ phone }, #{ gender }, #{ country }, #{ city }
+		)
+	</insert>
+	
+	
+	<select id="findProfessor" resultType="ProfessorVO">
+		SELECT *
+		FROM academy_professor
+		WHERE active = '1'
+	</select>
+	
+	<select id="findProfessorConfirm" resultType="ProfessorVO">
+		SELECT *
+		FROM academy_professor
+		WHERE active = '0'
+	</select>	
+		
+	<update id="updateProfessorDoConfirm" parameterType="int">
+		UPDATE academy_professor
+		SET active = '1'
+		WHERE pno = #{ pno }
+	</update>	
+	
+	<select id="findProfessorByPno" parameterType="int" resultType="ProfessorVO">
+		SELECT *
+		FROM academy_professor
+		WHERE pno = #{ pno }
+	</select>
+	
+	<delete id="deleteProfessorByPno" parameterType="int">
+		DELETE
+		FROM academy_professor
+		WHERE pno = #{ pno }
+	</delete>
+	
+	<select id="selectProfessorByName" parameterType="String" resultType="ProfessorVO">
+		select *
+		from academy_professor
+		where name like '%'||#{name}||'%'
+	</select>
+	
+</mapper>

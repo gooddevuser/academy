@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.StudentMapper">
+	
+	<insert id="insertStudent" parameterType="StudentVO" useGeneratedKeys="true">
+		INSERT INTO academy_student (
+			sno, uno, name, department, address, birth , postcode,
+			phone, gender, country, city
+		)
+		VALUES (
+			student_seq.nextval, #{ uno }, #{ name }, #{ department }, #{ address }, #{ birth }, #{ postcode }, #{ phone }, #{ gender }, #{ country }, #{ city }
+		)
+	</insert>	
+	
+	<select id="findStudent" resultType="StudentVO">
+		SELECT *
+		FROM academy_student
+		WHERE active = '1'
+	</select>
+	
+	<select id="findStudentConfirm" resultType="StudentVO">
+		SELECT *
+		FROM academy_student
+		WHERE active = '0'
+	</select>
+		
+	<update id="findStudentDoConfirm" parameterType="int">
+		UPDATE academy_student
+		SET active = '1'
+		WHERE sno = #{ sno }
+	</update>
+	
+	<select id="findStudentBySno" parameterType="int" resultType="StudentVO">
+		SELECT *
+		FROM academy_student
+		WHERE sno = #{ sno }
+	</select>
+	
+	<delete id="deleteStudentBySno" parameterType="int">
+		DELETE
+		FROM academy_student
+		WHERE sno = #{ sno }
+	</delete>	
+	
+	<select id="selectStudentByName" parameterType="String" resultType="StudentVO">
+		select *
+		from academy_student
+		where name like '%'||#{name}||'%'
+	</select>
+</mapper>

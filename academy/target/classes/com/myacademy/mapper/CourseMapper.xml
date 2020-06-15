@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- package-name : com.springboard.mapper, class-name : BoardMapper -->
+<mapper namespace="com.myacademy.mapper.CourseMapper">
+	
+	<insert id="insertCourse" parameterType="CourseVO" useGeneratedKeys="true">
+		INSERT INTO academy_course (
+			cno, name, duration, price, department, professor, year
+		)
+		VALUES (
+			course_seq.nextval, #{ name }, #{ duration }, #{ price }, #{ department }, #{ professor }, #{ year }
+		)
+	</insert>
+	
+	<select id="findCourse" resultType="CourseVO">
+		SELECT *
+		FROM academy_course
+		WHERE active = '1'
+	</select>
+	
+	<select id="findCourseConfirm" resultType="CourseVO">
+		SELECT *
+		FROM academy_course
+		WHERE active = '0'
+	</select>	
+		
+	<update id="findCourseDoConfirm" parameterType="int">
+		UPDATE academy_course
+		SET active = '1'
+		WHERE cno = #{ cno }
+	</update>	
+	
+	<select id="findCourseByCno" parameterType="int" resultType="CourseVO">
+		SELECT *
+		FROM academy_course
+		WHERE cno = #{ cno }
+	</select>
+	
+	<delete id="deleteCourseByCno" parameterType="int">
+		DELETE
+		FROM academy_course
+		WHERE cno = #{ cno }
+	</delete>
+	
+	<select id="selectCourseByName" parameterType="String" resultType="CourseVO">
+		select *
+		from academy_student
+		where name like '%'||#{name}||'%'
+	</select>
+	
+</mapper>
